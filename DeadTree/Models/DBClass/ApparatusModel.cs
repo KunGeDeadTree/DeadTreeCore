@@ -22,6 +22,5 @@
         [Required]
         public string Pattern { get; set; }
 
-
     }
 }

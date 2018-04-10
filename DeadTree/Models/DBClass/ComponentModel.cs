@@ -4,6 +4,8 @@
     using System.ComponentModel.DataAnnotations;
     public class ComponentModel
     {
-        //sdf
+        [Key]
+        [DisplayName("元件ID")]
+        public int CId { get; set; }
     }
 }

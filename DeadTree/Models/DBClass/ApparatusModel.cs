@@ -1,5 +1,6 @@
 ﻿namespace DeadTree.Models.DBClass
 {
+    using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     public class ApparatusModel
@@ -21,6 +22,9 @@
         [DisplayName("设备型号")]
         [Required]
         public string Pattern { get; set; }
+
+        [DisplayName("包含元件信息")]
+        public virtual ICollection<ComponentModel> Components { get; set; }
 
     }
 }

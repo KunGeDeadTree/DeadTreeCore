@@ -20,7 +20,6 @@
         [DisplayName("映射信息")]
         public virtual ICollection<FaultMappingModel> FaultMappings { get; set; }
 
-        [Required]
         public int AId { get; set; }
         public virtual ApparatusModel Apparatus { get; set; }
     }

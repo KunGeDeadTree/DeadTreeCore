@@ -60,6 +60,8 @@ namespace DeadTree.Models.DBClass
                     {
                         Name = "特征六号"
                     });
+
+                context.SaveChanges();
             }
         }
     }

@@ -1,5 +1,6 @@
 ﻿namespace DeadTree.Models.DBClass
 {
+    using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     public class ProfessorModel
@@ -42,5 +43,8 @@
         [Required]
         [DisplayName("开户行")]
         public string BankName { get; set; }
+
+        [DisplayName("回答过的问题")]
+        public virtual ICollection<QuestionsModel> Questions { get; set; }
     }
 }

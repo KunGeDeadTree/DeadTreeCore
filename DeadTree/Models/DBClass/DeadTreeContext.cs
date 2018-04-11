@@ -15,7 +15,10 @@
         public virtual DbSet<ComponentModel> GetComponentModels { get; set; }
         public virtual DbSet<FaultFeaturesModel> GetFaultFeaturesModels { get; set; }
         public virtual DbSet<FaultNameModel> GetFaultNameModels { get; set; }
-        public virtual DbSet<FaultMappingModel> GetFaultMappingModels { get; set; }
         public virtual DbSet<ProfessorModel> GetProfessorModels { get; set; }
+        public virtual DbSet<FaultResultsModel> GetFaultResultsModels { get; set; }
+        public virtual DbSet<FeaturesMappingModel> GetFeaturesMappingModels { get; set; }
+        public virtual DbSet<ResultsMappingModel> GetResultsMappingModels { get; set; }
+        public virtual DbSet<QuestionsModel> GetQuestionsModels { get; set; }
     }
 }

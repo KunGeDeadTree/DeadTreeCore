@@ -13,7 +13,7 @@
         [Required]
         public string Name { get; set; }
 
-        [DisplayName("映射信息")]
-        public virtual ICollection<FaultMappingModel> FaultMappings { get; set; }
+        [DisplayName("问题映射信息")]
+        public virtual ICollection<QuestionsModel> Questions { get; set; }
     }
 }

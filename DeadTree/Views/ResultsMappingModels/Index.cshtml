@@ -1,0 +1,53 @@
+﻿@model IEnumerable<DeadTree.Models.DBClass.ResultsMappingModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Probability)
+                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Component)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FaultResults)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Questions)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Probability)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Component.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FaultResults.FRId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Questions.Answer)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.RMId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.RMId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.RMId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

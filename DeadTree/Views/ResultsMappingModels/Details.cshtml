@@ -1,0 +1,42 @@
+﻿@model DeadTree.Models.DBClass.ResultsMappingModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ResultsMappingModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Probability)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Probability)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Component)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Component.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FaultResults)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FaultResults.FRId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Questions)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Questions.Answer)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.RMId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -34,32 +34,6 @@ namespace DeadTree.Models.DBClass
                     });
                 context.SaveChanges();
             }
-
-            if (!context.GetFaultFeaturesModels.Any())
-            {
-                context.GetFaultFeaturesModels.AddRange(
-                    new FaultFeaturesModel()
-                    {
-                        Name = "特征一号"
-                    }, new FaultFeaturesModel()
-                    {
-                        Name = "特征二号"
-                    }, new FaultFeaturesModel()
-                    {
-                        Name = "特征三号"
-                    }, new FaultFeaturesModel()
-                    {
-                        Name = "特征四号"
-                    }, new FaultFeaturesModel()
-                    {
-                        Name = "特征五号"
-                    }, new FaultFeaturesModel()
-                    {
-                        Name = "特征六号"
-                    });
-
-                context.SaveChanges();
-            }
         }
     }
 }

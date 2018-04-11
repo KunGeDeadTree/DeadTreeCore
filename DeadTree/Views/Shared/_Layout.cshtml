@@ -32,15 +32,21 @@
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="ComponentModels" asp-action="Index">Component</a></li>
                     <li><a asp-area="" asp-controller="ProfessorModels" asp-action="Index">Professor</a></li>
-                    <li><a asp-area="" asp-controller="FaultFeaturesModels" asp-action="Index">FaultFeatures</a></li>
-                    <li><a asp-area="" asp-controller="FaultNameModels" asp-action="Index">FaultName</a></li>
-                    <li><a asp-area="" asp-controller="FaultMappingModels" asp-action="Index">FaultMapping</a></li>
                     <li><a asp-area="" asp-controller="ApparatusModels" asp-action="Index">Apparatus</a></li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">订单管理 <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">故障信息管理 <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a asp-area="" asp-controller="BorrowModels" asp-action="Index">提货订单管理</a></li>
-                            <li><a asp-area="" asp-controller="PaybackModels" asp-action="Index">回收订单管理</a></li>
+                            <li><a asp-area="" asp-controller="FaultNameModels" asp-action="Index">故障名称管理</a></li>
+                            <li><a asp-area="" asp-controller="FaultFeaturesModels" asp-action="Index">故障特征管理</a></li>
+                            <li><a asp-area="" asp-controller="FaultResultModels" asp-action="Index">故障原因管理</a></li>
+                        </ul>
+                    </li>                    
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">调查问卷 <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a asp-area="" asp-controller="QuestionModels" asp-action="Index">问题管理</a></li>
+                            <li><a asp-area="" asp-controller="FeaturesMappingModels" asp-action="Index">故障特征映射</a></li>
+                            <li><a asp-area="" asp-controller="ResultsMappingModels" asp-action="Index">故障原因映射</a></li>
                         </ul>
                     </li>
                 </ul>

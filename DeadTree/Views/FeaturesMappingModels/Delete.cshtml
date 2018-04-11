@@ -1,0 +1,45 @@
+﻿@model DeadTree.Models.DBClass.FeaturesMappingModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>FeaturesMappingModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Component)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Component.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FaultFeatures)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FaultFeatures.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Questions)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Questions.Answer)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="FMId" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

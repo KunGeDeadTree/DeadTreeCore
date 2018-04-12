@@ -167,5 +167,37 @@ namespace DeadTree.Controllers
         {
             return _context.GetFeaturesMappingModels.Any(e => e.FMId == id);
         }
+
+        // GET: FeaturesMappingModels/Create
+        public IActionResult CreateInQuestion(int id)
+        {
+            ViewData["CId"] = new SelectList(_context.GetComponentModels, "CId", "Name");
+            ViewData["FFId"] = new SelectList(_context.GetFaultFeaturesModels, "FFId", "Name");
+            //ViewData["QId"] = new SelectList(_context.GetQuestionsModels, "QId", "Answer");
+
+            return View(new FeaturesMappingModel()
+            {
+                QId = id
+            });
+        }
+
+        // POST: FeaturesMappingModels/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateInQuestion(int id, [Bind("FMId,FFId,CId,Description,QId")] FeaturesMappingModel featuresMappingModel)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(featuresMappingModel);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("","", featuresMappingModel.);
+            }
+            ViewData["CId"] = new SelectList(_context.GetComponentModels, "CId", "Name", featuresMappingModel.CId);
+            ViewData["FFId"] = new SelectList(_context.GetFaultFeaturesModels, "FFId", "Name", featuresMappingModel.FFId);
+            //ViewData["QId"] = new SelectList(_context.GetQuestionsModels, "QId", "Answer", featuresMappingModel.QId);
+            return View(featuresMappingModel);
+        }
     }
 }

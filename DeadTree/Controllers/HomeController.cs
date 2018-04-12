@@ -45,7 +45,7 @@ namespace DeadTree.Controllers
 
         public async Task<IActionResult> Fill(int? id)
         {
-            
+
             if (id == null)
             {
                 return NotFound();
@@ -60,12 +60,22 @@ namespace DeadTree.Controllers
 
             var professor = await _context.GetProfessorModels.FirstOrDefaultAsync();
 
-            return View(new QuestionsModel()
+            var temp = await _context.AddAsync(new QuestionsModel()
             {
                 FNId = fn.FNId,
                 PId = professor.PId,
                 Answer = "请输入应对方案"
             });
+
+            await _context.SaveChangesAsync();
+
+            temp.Entity.FeaturesMappings =
+                await _context.GetFeaturesMappingModels.Where(x => x.QId == temp.Entity.QId).ToListAsync();
+
+            temp.Entity.ResultsMappings =
+                await _context.GetResultsMappingModels.Where(x => x.QId == temp.Entity.QId).ToListAsync();
+
+            return View(temp.Entity);
         }
 
         [HttpPost]

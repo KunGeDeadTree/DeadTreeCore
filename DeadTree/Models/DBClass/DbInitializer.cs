@@ -146,6 +146,26 @@ namespace DeadTree.Models.DBClass
 
                 context.SaveChanges();
             }
+
+            if (!context.GetFaultResultsModels.Any())
+            {
+                context.AddRange(
+                    new FaultResultsModel()
+                    {
+                        Result = "轴线摆度超标"
+                    }, new FaultResultsModel()
+                    {
+                        Result = "接触不良"
+                    }, new FaultResultsModel()
+                    {
+                        Result = "堵塞"
+                    }, new FaultResultsModel()
+                    {
+                        Result = "出现裂纹"
+                    });
+
+                context.SaveChanges();
+            }
         }
     }
 }

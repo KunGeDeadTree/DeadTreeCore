@@ -10,10 +10,10 @@ namespace DeadTree.Models.DBClass
 
             if (!context.GetApparatusModels.Any())
             {
-                context.GetApparatusModels.AddRange(
+                context.AddRange(
                     new ApparatusModel()
                     {
-                        Name = "设备一号",
+                        Name = "立式水轮发电机",
                         Pattern = "型号A",
                         Type = "类别A"
                     }, new ApparatusModel()
@@ -32,6 +32,98 @@ namespace DeadTree.Models.DBClass
                         Pattern = "型号D",
                         Type = "类别D"
                     });
+                context.SaveChanges();
+            }
+
+            if (!context.GetProfessorModels.Any())
+            {
+                context.AddRange(
+                    new ProfessorModel()
+                    {
+                        Name = "专家A",
+                        PaperworkNumber = "1231546",
+                        Unit = "HIT",
+                        Major = "修电脑",
+                        Email = "Weire@qq.com",
+                        CardNumber = "1554884668",
+                        BankName = "建设银行"
+                    }, new ProfessorModel()
+                    {
+                        Name = "专家B",
+                        PaperworkNumber = "1231546",
+                        Unit = "HIT",
+                        Major = "修电脑",
+                        Email = "Weire@qq.com",
+                        CardNumber = "1554884668",
+                        BankName = "建设银行"
+                    }, new ProfessorModel()
+                    {
+                        Name = "专家C",
+                        PaperworkNumber = "1231546",
+                        Unit = "HIT",
+                        Major = "修电脑",
+                        Email = "Weire@qq.com",
+                        CardNumber = "1554884668",
+                        BankName = "建设银行"
+                    }, new ProfessorModel()
+                    {
+                        Name = "专家D",
+                        PaperworkNumber = "1231546",
+                        Unit = "HIT",
+                        Major = "修电脑",
+                        Email = "Weire@qq.com",
+                        CardNumber = "1554884668",
+                        BankName = "建设银行"
+                    });
+
+                context.SaveChanges();
+            }
+
+            if (!context.GetFaultNameModels.Any())
+            {
+                context.AddRange(
+                    new FaultNameModel()
+                    {
+                        Name = "集电环、电刷高温故障"
+                    },
+                    new FaultNameModel()
+                    {
+                        Name = "轮胎漏气"
+                    },
+                    new FaultNameModel()
+                    {
+                        Name = "电线短路"
+                    });
+
+                context.SaveChanges();
+            }
+
+            if (!context.GetComponentModels.Any())
+            {
+                var app = context.GetApparatusModels.FirstOrDefault(x => x.Name == "立式水轮发电机");
+                context.AddRange(
+                    new ComponentModel()
+                    {
+                        Name = "导轴承",
+                        Specification = "规格A",
+                        Apparatus = app
+                    }, new ComponentModel()
+                    {
+                        Name = "转子",
+                        Specification = "规格A",
+                        Apparatus = app
+                    }, new ComponentModel()
+                    {
+                        Name = "轴心",
+                        Specification = "规格A",
+                        Apparatus = app
+                    }, new ComponentModel()
+                    {
+                        Name = "上机架",
+                        Specification = "规格A",
+                        Apparatus = app
+                    });
+
                 context.SaveChanges();
             }
         }

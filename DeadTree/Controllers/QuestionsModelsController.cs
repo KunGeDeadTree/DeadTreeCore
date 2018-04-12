@@ -49,7 +49,7 @@ namespace DeadTree.Controllers
         public IActionResult Create()
         {
             ViewData["FNId"] = new SelectList(_context.GetFaultNameModels, "FNId", "Name");
-            ViewData["PId"] = new SelectList(_context.GetProfessorModels, "PId", "BankName");
+            ViewData["PId"] = new SelectList(_context.GetProfessorModels, "PId", "Name");
             return View();
         }
 
@@ -67,7 +67,7 @@ namespace DeadTree.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["FNId"] = new SelectList(_context.GetFaultNameModels, "FNId", "Name", questionsModel.FNId);
-            ViewData["PId"] = new SelectList(_context.GetProfessorModels, "PId", "BankName", questionsModel.PId);
+            ViewData["PId"] = new SelectList(_context.GetProfessorModels, "PId", "Name", questionsModel.PId);
             return View(questionsModel);
         }
 
@@ -85,7 +85,7 @@ namespace DeadTree.Controllers
                 return NotFound();
             }
             ViewData["FNId"] = new SelectList(_context.GetFaultNameModels, "FNId", "Name", questionsModel.FNId);
-            ViewData["PId"] = new SelectList(_context.GetProfessorModels, "PId", "BankName", questionsModel.PId);
+            ViewData["PId"] = new SelectList(_context.GetProfessorModels, "PId", "Name", questionsModel.PId);
             return View(questionsModel);
         }
 
@@ -122,7 +122,7 @@ namespace DeadTree.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["FNId"] = new SelectList(_context.GetFaultNameModels, "FNId", "Name", questionsModel.FNId);
-            ViewData["PId"] = new SelectList(_context.GetProfessorModels, "PId", "BankName", questionsModel.PId);
+            ViewData["PId"] = new SelectList(_context.GetProfessorModels, "PId", "Name", questionsModel.PId);
             return View(questionsModel);
         }
 

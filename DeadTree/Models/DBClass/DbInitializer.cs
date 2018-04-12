@@ -126,6 +126,26 @@ namespace DeadTree.Models.DBClass
 
                 context.SaveChanges();
             }
+
+            if (!context.GetFaultFeaturesModels.Any())
+            {
+                context.AddRange(
+                    new FaultFeaturesModel()
+                    {
+                        Name = "温度"
+                    }, new FaultFeaturesModel()
+                    {
+                        Name = "压力"
+                    }, new FaultFeaturesModel()
+                    {
+                        Name = "功率"
+                    }, new FaultFeaturesModel()
+                    {
+                        Name = "转速"
+                    });
+
+                context.SaveChanges();
+            }
         }
     }
 }

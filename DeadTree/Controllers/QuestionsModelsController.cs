@@ -79,13 +79,27 @@ namespace DeadTree.Controllers
                 return NotFound();
             }
 
-            var questionsModel = await _context.GetQuestionsModels.SingleOrDefaultAsync(m => m.QId == id);
+            var questionsModel = await _context.GetQuestionsModels
+                .Include(x => x.FaultName)
+                .Include(x => x.Professor)
+                .SingleOrDefaultAsync(m => m.QId == id);
+
+            questionsModel.FeaturesMappings = await _context.GetFeaturesMappingModels
+                .Include(x => x.Component)
+                .Include(x => x.FaultFeatures)
+                .Where(x => x.QId == id).ToListAsync();
+
+            questionsModel.ResultsMappings = await _context.GetResultsMappingModels
+                                .Include(x => x.Component)
+                                .Include(x => x.FaultResults)
+                .Where(x => x.QId == id).ToListAsync();
+
             if (questionsModel == null)
             {
                 return NotFound();
             }
-            ViewData["FNId"] = new SelectList(_context.GetFaultNameModels, "FNId", "Name", questionsModel.FNId);
-            ViewData["PId"] = new SelectList(_context.GetProfessorModels, "PId", "Name", questionsModel.PId);
+            //ViewData["FNId"] = new SelectList(_context.GetFaultNameModels, "FNId", "Name", questionsModel.FNId);
+            //ViewData["PId"] = new SelectList(_context.GetProfessorModels, "PId", "Name", questionsModel.PId);
             return View(questionsModel);
         }
 
@@ -121,8 +135,8 @@ namespace DeadTree.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["FNId"] = new SelectList(_context.GetFaultNameModels, "FNId", "Name", questionsModel.FNId);
-            ViewData["PId"] = new SelectList(_context.GetProfessorModels, "PId", "Name", questionsModel.PId);
+            //ViewData["FNId"] = new SelectList(_context.GetFaultNameModels, "FNId", "Name", questionsModel.FNId);
+            //ViewData["PId"] = new SelectList(_context.GetProfessorModels, "PId", "Name", questionsModel.PId);
             return View(questionsModel);
         }
 

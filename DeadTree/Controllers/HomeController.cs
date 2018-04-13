@@ -102,6 +102,5 @@ namespace DeadTree.Controllers
             }
             return View(questionsModel);
         }
-
     }
 }

@@ -173,7 +173,6 @@ namespace DeadTree.Controllers
         {
             ViewData["CId"] = new SelectList(_context.GetComponentModels, "CId", "Name");
             ViewData["FFId"] = new SelectList(_context.GetFaultFeaturesModels, "FFId", "Name");
-            //ViewData["QId"] = new SelectList(_context.GetQuestionsModels, "QId", "Answer");
 
             return View(new FeaturesMappingModel()
             {
@@ -181,9 +180,6 @@ namespace DeadTree.Controllers
             });
         }
 
-        // POST: FeaturesMappingModels/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateInQuestion(int id, [Bind("FMId,FFId,CId,Description,QId")] FeaturesMappingModel featuresMappingModel)
@@ -192,7 +188,7 @@ namespace DeadTree.Controllers
             {
                 _context.Add(featuresMappingModel);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("","", featuresMappingModel.);
+                return RedirectToAction("Edit","QuestionsModels", new { id = featuresMappingModel.QId });
             }
             ViewData["CId"] = new SelectList(_context.GetComponentModels, "CId", "Name", featuresMappingModel.CId);
             ViewData["FFId"] = new SelectList(_context.GetFaultFeaturesModels, "FFId", "Name", featuresMappingModel.FFId);

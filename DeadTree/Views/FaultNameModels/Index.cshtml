@@ -25,6 +25,7 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
+                <a asp-action="Tree" asp-controller="Home" asp-route-id="@item.FNId">查看该问题图谱</a> |
                 <a asp-action="Edit" asp-route-id="@item.FNId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.FNId">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.FNId">Delete</a>

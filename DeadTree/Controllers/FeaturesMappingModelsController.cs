@@ -38,6 +38,7 @@ namespace DeadTree.Controllers
                 .Include(f => f.FaultFeatures)
                 .Include(f => f.Questions)
                 .SingleOrDefaultAsync(m => m.FMId == id);
+
             if (featuresMappingModel == null)
             {
                 return NotFound();

@@ -1,0 +1,47 @@
+﻿@model IEnumerable<DeadTree.Models.DBClass.QuestionsModel>
+
+@{
+    ViewData["Title"] = "Tree";
+}
+
+<h2>Tree</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Answer)
+                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FaultName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Professor)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Answer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FaultName.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Professor.BankName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.QId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.QId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.QId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

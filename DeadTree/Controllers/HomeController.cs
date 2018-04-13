@@ -102,5 +102,16 @@ namespace DeadTree.Controllers
             }
             return View(questionsModel);
         }
+
+        // GET: QuestionsModels
+        public async Task<IActionResult> Tree(int id)
+        {
+            var deadTreeContext = _context.GetQuestionsModels                
+                .Include(q => q.FaultName)
+                .Include(q => q.Professor)
+                .Where(x => x.FNId == id);
+
+            return View(await deadTreeContext.ToListAsync());
+        }
     }
 }

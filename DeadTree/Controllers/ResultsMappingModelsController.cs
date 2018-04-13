@@ -167,5 +167,32 @@ namespace DeadTree.Controllers
         {
             return _context.GetResultsMappingModels.Any(e => e.RMId == id);
         }
+
+        // GET: FeaturesMappingModels/Create
+        public IActionResult CreateInQuestion(int id)
+        {
+            ViewData["CId"] = new SelectList(_context.GetComponentModels, "CId", "Name");
+            ViewData["FRId"] = new SelectList(_context.GetFaultResultsModels, "FRId", "Result");
+
+            return View(new ResultsMappingModel()
+            {
+                QId = id
+            });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateInQuestion([Bind("RMId,FRId,CId,Probability,QId")] ResultsMappingModel resultsMappingModel)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(resultsMappingModel);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Edit", "QuestionsModels", new { id = resultsMappingModel.QId });
+            }
+            ViewData["CId"] = new SelectList(_context.GetComponentModels, "CId", "Name", resultsMappingModel.CId);
+            ViewData["FRId"] = new SelectList(_context.GetFaultResultsModels, "FRId", "Result", resultsMappingModel.FRId);
+            return View(resultsMappingModel);
+        }
     }
 }

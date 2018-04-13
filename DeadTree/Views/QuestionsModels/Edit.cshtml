@@ -2,6 +2,9 @@
 
 @{
     ViewData["Title"] = "请问\"" + Model.FaultName.Name + "\"的特征是什么？";
+
+    var featuresGroup = Model.FeaturesMappings.GroupBy(x => x.FFId);
+    var resultsGroup = Model.ResultsMappings.GroupBy(x => x.FRId);
 }
 
 <div class="jumbotron" style="background-color:deepskyblue">
@@ -11,24 +14,26 @@
 </div>
 
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="QId" />
-            <input type="hidden" asp-for="PId" />
-            <input type="hidden" asp-for="FNId" />
-            <div>
-                <!-- Nav tabs -->
-                <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#inve" aria-controls="inve" role="tab" data-toggle="tab">故障表征</a></li>
-                    <li role="presentation"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">故障原因</a></li>
-                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">应对方案</a></li>
-                </ul>
-                <div class="tab-content">
+    <form asp-action="Edit">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="QId" />
+        <input type="hidden" asp-for="PId" />
+        <input type="hidden" asp-for="FNId" />
+        <div>
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#inve" aria-controls="inve" role="tab" data-toggle="tab">故障表征</a></li>
+                <li role="presentation"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">故障原因</a></li>
+                <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">应对方案</a></li>
+            </ul>
+            <div class="tab-content">
 
-                    <div role="tabpanel" class="tab-pane fade in active" id="inve">
+                <div role="tabpanel" class="tab-pane fade in active" id="inve">
 
-                        <table class="table table-condensed">
+                    <div class="panel panel-danger">
+
+
+                        <table class="table table-hover">
                             <thead>
                                 <tr>
                                     <th>
@@ -44,32 +49,45 @@
                             </thead>
                             <tbody>
 
-                                @foreach (var item in Model.FeaturesMappings)
+                                @foreach (var item in featuresGroup)
                                 {
+                                    var a = item.Count() + 1;
                                     <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.FaultFeatures.Name)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Component.Name)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Description)
+                                        <td rowspan=@a>
+                                            @item.First().FaultFeatures.Name
                                         </td>
                                     </tr>
-
+                                    foreach (var line in item)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @line.Component.Name
+                                            </td>
+                                            <td>
+                                                <a asp-action="Edit" asp-controller="FeaturesMappingModels" asp-route-id="@line.FMId">@Html.DisplayFor(modelItem => line.Description)</a>
+                                            </td>
+                                        </tr>
+                                    }
                                 }
+
                             </tbody>
                         </table>
 
-                        <p>
+                        <div class="panel-footer">
                             @Html.ActionLink("添加故障特征映射", "CreateInQuestion", "FeaturesMappingModels", routeValues: new { id = Model.QId }, htmlAttributes: new { @class = "btn btn-block btn-danger" })
-                        </p>
+                        </div>
+
                     </div>
 
-                    <div role="tabpanel" class="tab-pane fade" id="home">
 
-                        <table class="table table-condensed">
+
+
+                </div>
+
+                <div role="tabpanel" class="tab-pane fade" id="home">
+                    <div class="panel panel-danger">
+
+                        <table class="table table-hover">
                             <thead>
                                 <tr>
                                     <th>
@@ -84,44 +102,49 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    @foreach (var item in Model.ResultsMappings)
+
+                                @foreach (var item in resultsGroup)
+                                {
+                                    var a = item.Count() + 1;
+                                    <tr>
+                                        <td rowspan=@a>
+                                            @item.First().FaultResults.Result
+                                        </td>
+                                    </tr>
+                                    foreach (var line in item)
                                     {
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.FaultResults.Result)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Component.Name)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Probability)
-                                        </td>
+                                        <tr>
+                                            <td>
+                                                @line.Component.Name
+                                            </td>
+                                            <td>
+                                                <a asp-action="Edit" asp-controller="ResultsMappingModels" asp-route-id="@line.RMId">@Html.DisplayFor(modelItem => line.Probability)</a>
+                                            </td>
+                                        </tr>
                                     }
-                                </tr>
+                                }
                             </tbody>
                         </table>
-                        <p>
+                        <div class="panel-footer">
                             @Html.ActionLink("添加故障原因映射", "CreateInQuestion", "ResultsMappingModels", routeValues: new { id = Model.QId }, htmlAttributes: new { @class = "btn btn-block btn-warning" })
-                        </p>
-                    </div>
-
-                    <div role="tabpanel" class="tab-pane fade" id="profile">
-                        <div class="form-group">
-                            <label asp-for="Answer" class="control-label"></label>
-                            <textarea asp-for="Answer" class="form-control" rows="3"></textarea>
-                            <span asp-validation-for="Answer" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <input type="submit" value="Save" class="btn btn-block btn-primary" />
                         </div>
                     </div>
-
                 </div>
 
+                <div role="tabpanel" class="tab-pane fade" id="profile">
+                    <div class="form-group">
+                        <label asp-for="Answer" class="control-label"></label>
+                        <textarea asp-for="Answer" class="form-control" rows="3"></textarea>
+                        <span asp-validation-for="Answer" class="text-danger"></span>
+                    </div>
 
-        </form>
-    </div>
+                    <div class="form-group">
+                        <input type="submit" value="保存" class="btn btn-block btn-primary" />
+                    </div>
+                </div>
+
+            </div>
+    </form>
 </div>
 
 @section Scripts {

@@ -127,11 +127,13 @@
                                 @foreach (var item in resultsGroup)
                                 {
                                     var a = item.Count() + 1;
+
                                     <tr>
-                                        <td rowspan=@a>
+                                        <td name="ResultsName" rowspan=@a>
                                             @item.First().FaultResults.Result
                                         </td>
                                     </tr>
+
                                     foreach (var line in item)
                                     {
                                         <tr>
@@ -142,7 +144,15 @@
                                                 <a asp-action="Edit" asp-controller="ResultsMappingModels" asp-route-id="@line.RMId">@Html.DisplayFor(modelItem => line.Probability)</a>
                                             </td>
                                         </tr>
+
+                                        <hit hidden="hidden" name="ResultsComponentNameAndDescription">
+                                            @line.Component.Name - @line.Probability
+                                        </hit>
                                     }
+
+                                    <hit hidden="hidden" name="ResultsComponentNumber">
+                                        @item.Count()
+                                    </hit>
                                 }
                             </tbody>
                         </table>
@@ -220,6 +230,41 @@
         }
     }
 
+    //---------------------特征------------结果------------------------//
+
+    var ResultsNameArray = document.getElementsByName("ResultsName");
+
+    ResultsNameArray.forEach(v => {
+        mynodes.push({ name: v.innerText.trim() });
+        mynodes.push({ name: "AND" });
+    });
+
+    var ResultsComponentNameAndDescriptionArray = document.getElementsByName("ResultsComponentNameAndDescription");
+
+    ResultsComponentNameAndDescriptionArray.forEach(v => {
+        mynodes.push({ name: v.innerText.trim() });
+    });
+
+    var ResultsComponentNumberArray = new Array();
+
+    document.getElementsByName("ResultsComponentNumber").forEach(v => {
+        ResultsComponentNumberArray.push(parseInt(v.innerText.trim()));
+    });
+
+    var oldCounter = counter;
+    counter += ResultsNameArray.length * 2;
+
+    console.log(counter);
+    for (var i = 0; i < ResultsNameArray.length; i++) {
+        myedges.push({ source: oldCounter + i * 2, target: 2 });
+        myedges.push({ source: oldCounter + 1 + i * 2, target: oldCounter + i * 2 });
+
+        for (var j = 0; j < ResultsComponentNumberArray[i]; j++) {
+            myedges.push({ source: counter++, target: oldCounter + 1 + i * 2 });
+        }
+    }
+
+    console.log(mynodes);
     console.log(myedges);
 </script>
 

@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "请问\"" + Model.FaultName.Name + "\"的特征是什么？";
 
-    ViewData["SubTitle"] = "回答专家：" + Model.
+    ViewData["SubTitle"] = "回答专家：" + Model.Professor.Name;
 
     var featuresGroup = Model.FeaturesMappings.GroupBy(x => x.FFId);
     var resultsGroup = Model.ResultsMappings.GroupBy(x => x.FRId);

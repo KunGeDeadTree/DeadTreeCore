@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,7 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 using DeadTree.Models;
 using DeadTree.Models.DBClass;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DeadTree.Controllers
 {
@@ -15,14 +17,9 @@ namespace DeadTree.Controllers
     {
         private readonly DeadTreeContext _context;
 
-        public HomeController(DeadTreeContext context)
-        {
-            _context = context;
-        }
-        public IActionResult Index()
-        {
-            return View();
-        }
+        public HomeController(DeadTreeContext context) => _context = context;
+
+        public IActionResult Index() => View();
 
         public IActionResult About()
         {
@@ -39,9 +36,7 @@ namespace DeadTree.Controllers
         }
 
         public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+            => View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
 
         public async Task<IActionResult> Fill(int? id)
         {
@@ -106,12 +101,74 @@ namespace DeadTree.Controllers
         // GET: QuestionsModels
         public async Task<IActionResult> Tree(int id)
         {
-            var deadTreeContext = _context.GetQuestionsModels                
+            var deadTreeContext = _context.GetQuestionsModels
                 .Include(q => q.FaultName)
                 .Include(q => q.Professor)
                 .Where(x => x.FNId == id);
 
             return View(await deadTreeContext.ToListAsync());
+        }
+
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Login([Bind("Email,Password")] ProfessorModel professorModel)
+        {
+            var find = await _context.GetProfessorModels.FirstOrDefaultAsync(x =>
+            x.Email == professorModel.Email && x.Password == professorModel.Password);
+
+            if (find != null)
+            {
+                var claimsIdentity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
+                claimsIdentity.AddClaim(new Claim(ClaimTypes.Sid, find.Email));
+                claimsIdentity.AddClaim(new Claim(ClaimTypes.Role, find.Type.ToString()));
+
+                var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal, new AuthenticationProperties
+                {
+                    ExpiresUtc = DateTime.UtcNow.AddDays(7)
+                });
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            ModelState.AddModelError("Email", "用户名或密码错误！");
+
+            return View(professorModel);
+        }
+
+        public async Task<ActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Regist()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Regist([Bind("PId,Name,PaperworkNumber,Unit,Major,PhoneNumber,Email,WeChat,CardNumber,BankName,Password")] ProfessorModel professorModel)
+        {
+            if (await _context.GetProfessorModels.AnyAsync(x => x.Email == professorModel.Email))
+            {
+                ModelState.AddModelError("Email", "该邮箱已被注册");
+            }
+
+            if (ModelState.IsValid)
+            {
+                professorModel.Type = Models.EnumClass.EnumAccountType.专家;
+                _context.Add(professorModel);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(professorModel);
         }
     }
 }

@@ -41,37 +41,64 @@ namespace DeadTree.Models.DBClass
                     new ProfessorModel()
                     {
                         Name = "专家A",
+                        Type = EnumClass.EnumAccountType.专家,
+
                         PaperworkNumber = "1231546",
+                        Password = "12345678",
+                        ConfirmPassword = "12345678",
                         Unit = "HIT",
                         Major = "修电脑",
-                        Email = "Weire@qq.com",
+                        Email = "pro1@qq.com",
                         CardNumber = "1554884668",
                         BankName = "建设银行"
                     }, new ProfessorModel()
                     {
                         Name = "专家B",
+                        Type = EnumClass.EnumAccountType.专家,
+
                         PaperworkNumber = "1231546",
+                        Password = "12345678",
+                        ConfirmPassword = "12345678",
                         Unit = "HIT",
                         Major = "修电脑",
-                        Email = "Weire@qq.com",
+                        Email = "pro2@qq.com",
                         CardNumber = "1554884668",
                         BankName = "建设银行"
                     }, new ProfessorModel()
                     {
                         Name = "专家C",
+                        Type = EnumClass.EnumAccountType.专家,
+
                         PaperworkNumber = "1231546",
+                        Password = "12345678",
+                        ConfirmPassword = "12345678",
                         Unit = "HIT",
                         Major = "修电脑",
-                        Email = "Weire@qq.com",
+                        Email = "pro3@qq.com",
                         CardNumber = "1554884668",
                         BankName = "建设银行"
                     }, new ProfessorModel()
                     {
                         Name = "专家D",
+                        Type = EnumClass.EnumAccountType.专家,
                         PaperworkNumber = "1231546",
+                        Password = "12345678",
+                        ConfirmPassword = "12345678",
                         Unit = "HIT",
                         Major = "修电脑",
-                        Email = "Weire@qq.com",
+                        Email = "pro4@qq.com",
+                        CardNumber = "1554884668",
+                        BankName = "建设银行"
+                    }, new ProfessorModel()
+                    {
+                        Name = "管理员",
+                        Type = EnumClass.EnumAccountType.超级管理员,
+                        PaperworkNumber = "1231546",
+                        Password = "12345678",
+                        ConfirmPassword = "12345678",
+                        Unit = "HIT",
+                        Major = "修电脑",
+                        Email = "admin@qq.com",
                         CardNumber = "1554884668",
                         BankName = "建设银行"
                     });

@@ -1,4 +1,5 @@
 ﻿using DeadTree.Models.DBClass;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -21,6 +22,16 @@ namespace DeadTree
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<DeadTreeContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddAuthentication(options =>
+            {
+                options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            }).AddCookie(options =>
+            {
+                options.LoginPath = "/Home/Login";
+                options.Cookie.HttpOnly = true;
+            });
+
             services.AddTransient<HttpContextAccessor>();
 
             services.AddMvc();
@@ -40,6 +51,8 @@ namespace DeadTree
             }
 
             app.UseStaticFiles();
+
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

@@ -4,33 +4,35 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<div class="jumbotron" style="background-color:cadetblue">
+    <h2 style="color:white">@ViewData["Title"]</h2>
+    <p class="lead">
+        <a class="btn btn-warning" asp-action="Create">Create New</a>
+    </p>
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                操作
+            </th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                <a asp-action="Tree" asp-controller="Home" asp-route-id="@item.FNId">查看该问题图谱</a> |
-                <a asp-action="Edit" asp-route-id="@item.FNId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.FNId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.FNId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a class="btn btn-xs btn-success" asp-action="Edit" asp-route-id="@item.FNId">@Html.DisplayFor(modelItem => item.Name)</a>
+                </td>
+                <td>
+                    <a class="btn btn-xs btn-info" asp-action="Tree" asp-controller="Home" asp-route-id="@item.FNId">查看该问题图谱</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

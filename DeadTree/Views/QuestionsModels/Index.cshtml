@@ -1,14 +1,19 @@
 ﻿@model IEnumerable<DeadTree.Models.DBClass.QuestionsModel>
 
+@using System.Security.Claims;
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "问题管理";
+    var t = User.FindFirst(ClaimTypes.Sid);
+    var userEmail = t == null ? "" : t.Value;
 }
 
-<h2>Index</h2>
+<div class="jumbotron" style="background-color:cornflowerblue">
+    <h2 style="color:white">@ViewData["Title"]</h2>
+    <p class="lead">
+        <a class="btn btn-warning" asp-action="Create">Create New</a>
+    </p>
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -16,37 +21,25 @@
                 @Html.DisplayNameFor(model => model.QId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Answer)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.FaultName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Professor)
+                操作
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.Where(x => x.Professor.Email == userEmail))
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.QId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Answer)
+                    <a asp-action="Edit" asp-route-id="@item.QId">ID: @Html.DisplayFor(modelItem => item.QId)</a>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.FaultName.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Professor.Name)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.QId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.QId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.QId">Delete</a>
+                    <a class="btn btn-xs btn-danger" asp-action="Delete" asp-route-id="@item.QId">Delete</a>
                 </td>
             </tr>
         }

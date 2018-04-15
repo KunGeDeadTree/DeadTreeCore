@@ -53,7 +53,7 @@ namespace DeadTree.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PId,Name,PaperworkNumber,Unit,Major,PhoneNumber,Email,WeChat,CardNumber,BankName")] ProfessorModel professorModel)
+        public async Task<IActionResult> Create([Bind("PId,Name,PaperworkNumber,Unit,Major,PhoneNumber,Email,WeChat,CardNumber,BankName,Password,Salt,Type")] ProfessorModel professorModel)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +85,7 @@ namespace DeadTree.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PId,Name,PaperworkNumber,Unit,Major,PhoneNumber,Email,WeChat,CardNumber,BankName")] ProfessorModel professorModel)
+        public async Task<IActionResult> Edit(int id, [Bind("PId,Name,PaperworkNumber,Unit,Major,PhoneNumber,Email,WeChat,CardNumber,BankName,Password,Salt,Type")] ProfessorModel professorModel)
         {
             if (id != professorModel.PId)
             {

@@ -3,6 +3,8 @@
 @{
     ViewData["Title"] = "请问\"" + Model.FaultName.Name + "\"的特征是什么？";
 
+    ViewData["SubTitle"] = "回答专家：" + Model.
+
     var featuresGroup = Model.FeaturesMappings.GroupBy(x => x.FFId);
     var resultsGroup = Model.ResultsMappings.GroupBy(x => x.FRId);
 }
@@ -25,6 +27,9 @@
     <h2 style="color:white">
         @ViewBag.Title
     </h2>
+    <p class="lead">
+
+    </p>
 </div>
 
 <div class="row">
@@ -269,8 +274,6 @@
 </script>
 
 <div>
-    <button class="btn btn-block btn-primary" onclick="startDrawing(mynodes, myedges)">绘制！</button>
-
     <svg class="row">
 
     </svg>
@@ -344,6 +347,7 @@
 
     }
 
+    startDrawing(mynodes, myedges);
 </script>
 
 @section Scripts {

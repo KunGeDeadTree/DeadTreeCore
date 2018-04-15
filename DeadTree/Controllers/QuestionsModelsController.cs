@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DeadTree.Models.DBClass;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace DeadTree.Controllers
 {
@@ -45,29 +47,31 @@ namespace DeadTree.Controllers
             return View(questionsModel);
         }
 
+        [Authorize]
         // GET: QuestionsModels/Create
         public IActionResult Create()
         {
             ViewData["FNId"] = new SelectList(_context.GetFaultNameModels, "FNId", "Name");
-            ViewData["PId"] = new SelectList(_context.GetProfessorModels, "PId", "Name");
+            //ViewData["PId"] = new SelectList(_context.GetProfessorModels, "PId", "Name");
             return View();
         }
 
-        // POST: QuestionsModels/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("QId,Answer,PId,FNId")] QuestionsModel questionsModel)
+        public async Task<IActionResult> Create([Bind("QId,Answer,FNId")] QuestionsModel questionsModel)
         {
             if (ModelState.IsValid)
             {
+                questionsModel.PId = (await _context.GetProfessorModels
+                    .FirstOrDefaultAsync(x => x.Email == User.FindFirst(ClaimTypes.Sid).Value)).PId;
+
                 _context.Add(questionsModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["FNId"] = new SelectList(_context.GetFaultNameModels, "FNId", "Name", questionsModel.FNId);
-            ViewData["PId"] = new SelectList(_context.GetProfessorModels, "PId", "Name", questionsModel.PId);
+            //ViewData["PId"] = new SelectList(_context.GetProfessorModels, "PId", "Name", questionsModel.PId);
             return View(questionsModel);
         }
 

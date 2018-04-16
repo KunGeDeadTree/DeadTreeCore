@@ -6,7 +6,7 @@
     var BigFeatures = new List<DeadTree.Models.DBClass.FeaturesMappingModel>();
     var BigResults = new List<DeadTree.Models.DBClass.ResultsMappingModel>();
 
-    foreach(var item in Model)
+    foreach (var item in Model)
     {
         BigFeatures.AddRange(item.FeaturesMappings);
         BigResults.AddRange(item.ResultsMappings);
@@ -15,14 +15,6 @@
     var featuresGroup = BigFeatures.GroupBy(x => x.FFId);
     var resultsGroup = BigResults.GroupBy(x => x.FRId);
 }
-
-<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-
-<div class="jumbotron" style="background-color:deepskyblue">
-    <h2 style="color:white">
-        @ViewBag.Title
-    </h2>
-</div>
 
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 
@@ -43,7 +35,6 @@
         @ViewBag.Title
     </h2>
     <p class="lead">
-
     </p>
 </div>
 
@@ -170,11 +161,21 @@
             </div>
         </div>
 
+        <div role="tabpanel" class="tab-pane fade" id="profile">
+            @foreach (var item in Model)
+            {
+                <div class="panel panel-info">
+                    <div class="panel-heading">@item.Professor.Name</div>
+                    <div class="panel-body">
+                        @item.Answer
+                    </div>
+                </div>
+            }
+        </div>
     </div>
 </div>
 
 <script>
-
     var mynodes = new Array();
 
     mynodes.push({ name: d3.select("FaultName").text().trim(), color: "cornflowerblue" });
@@ -269,13 +270,13 @@
     function startDrawing(nodes, edges) {
         var svg = d3.select("svg")     //选择文档中的body元素
             // .append("svg")          //添加一个svg元素
-            .attr("width", 800)       //设定宽度
-            .attr("height", 720);    //设定高度
+            .attr("width", 1200)       //设定宽度
+            .attr("height", 1000);    //设定高度
 
         var force = d3.layout.force()
             .nodes(nodes) //指定节点数组
             .links(edges) //指定连线数组
-            .size([800, 720]) //指定作用域范围
+            .size([1200, 1000]) //指定作用域范围
             .linkDistance(150) //指定连线长度
             .charge([-400]); //相互之间的作用力
 

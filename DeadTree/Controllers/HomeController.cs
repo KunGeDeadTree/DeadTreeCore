@@ -104,9 +104,20 @@ namespace DeadTree.Controllers
             var deadTreeContext = _context.GetQuestionsModels
                 .Include(q => q.FaultName)
                 .Include(q => q.Professor)
-                .Include(q => q.FeaturesMappings)
-                .Include(q => q.ResultsMappings)
                 .Where(x => x.FNId == id);
+
+            foreach (var item in deadTreeContext)
+            {
+                item.FeaturesMappings = await _context.GetFeaturesMappingModels
+                        .Include(x => x.Component)
+                        .Include(x => x.FaultFeatures)
+                        .Where(x => x.QId == item.QId).ToListAsync();
+
+                item.ResultsMappings = await _context.GetResultsMappingModels
+                    .Include(x => x.Component)
+                    .Include(x => x.FaultResults)
+                    .Where(x => x.QId == item.QId).ToListAsync();
+            }
 
             return View(await deadTreeContext.ToListAsync());
         }

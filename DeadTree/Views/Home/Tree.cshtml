@@ -12,14 +12,47 @@
         BigResults.AddRange(item.ResultsMappings);
     }
 
+    for (int i = 0; i < BigFeatures.Count - 1; i++)
+    {
+        var item = BigFeatures[i];
+        for (int j = i + 1; j < BigFeatures.Count; j++)
+        {
+            var jtem = BigFeatures[j];
+            if (item.FaultFeatures == jtem.FaultFeatures && item.Component == jtem.Component && item.Description == jtem.Description)
+            {
+                BigFeatures.Remove(item);
+                i--;
+            }
+        }
+
+    }
+
+    for (int i = 0; i < BigResults.Count - 1; i++)
+    {
+        var item = BigResults[i];
+        for (int j = i + 1; j < BigResults.Count; j++)
+        {
+            var jtem = BigResults[j];
+            if (item.FaultResults == jtem.FaultResults && item.Component == jtem.Component)
+            {
+                BigResults[j].Probability += item.Probability;
+                BigResults.Remove(item);
+                i--;
+            }
+        }
+
+    }
+
     var featuresGroup = BigFeatures.GroupBy(x => x.FFId);
     var resultsGroup = BigResults.GroupBy(x => x.FRId);
+
+    var quest = Model.FirstOrDefault() == null ? "" : Model.FirstOrDefault().FaultName.Name;
 }
 
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 
 <FaultName hidden="hidden">
-    @Model.FirstOrDefault().FaultName.Name
+    @quest
 </FaultName>
 
 <FaultFeaturesCount hidden="hidden">

@@ -1,24 +1,19 @@
 ﻿@model IEnumerable<DeadTree.Models.DBClass.QuestionsModel>
 
-@using DeadTree.Models.ViewModels
 @{
-    ViewData["Title"] = "树状知识图谱 森林Ver";
+    ViewData["Title"] = "树状知识图谱 融合算法Ver1.0";
 
-    var nodes = new List<TreeNodeViewModel>();
+    var BigFeatures = new List<DeadTree.Models.DBClass.FeaturesMappingModel>();
+    var BigResults = new List<DeadTree.Models.DBClass.ResultsMappingModel>();
 
-    nodes.Add(new TreeNodeViewModel() { name = "轮胎漏气" });
-    nodes.Add(new TreeNodeViewModel() { name = "OR" });
-    nodes.Add(new TreeNodeViewModel() { name = "温度" });
-    nodes.Add(new TreeNodeViewModel() { name = "AND" });
-    nodes.Add(new TreeNodeViewModel() { name = "导轴承" });
-    nodes.Add(new TreeNodeViewModel() { name = "导轴承" });
-    nodes.Add(new TreeNodeViewModel() { name = "导轴承" });
-    nodes.Add(new TreeNodeViewModel() { name = "轴心" });
+    foreach(var item in Model)
+    {
+        BigFeatures.AddRange(item.FeaturesMappings);
+        BigResults.AddRange(item.ResultsMappings);
+    }
 
-    //foreach(var item in Model)
-    //{
-    //    nodes.Add(new TreeNodeViewModel (){ name = item.FaultName.Name });
-    //}
+    var featuresGroup = BigFeatures.GroupBy(x => x.FFId);
+    var resultsGroup = BigResults.GroupBy(x => x.FRId);
 }
 
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
@@ -29,31 +24,246 @@
     </h2>
 </div>
 
-<script>
-    var mynodes = [{ name: "轮胎漏气" }, { name: "OR" },
-    { name: "温度" }, { name: "AND" }, { name: "导轴承" }, { name: "导轴承" }, { name: "导轴承" }, { name: "轴心" },
-    { name: "功率" }, { name: "AND" }, { name: "导轴承" },
-    { name: "转速" }, { name: "AND" }, { name: "导轴承" },
-    { name: "OR" },
-    { name: "轴线摆度超标" }, { name: "AND" }, { name: "轴心" }, { name: "轴心" },
-    { name: "堵塞" }, { name: "AND" }, { name: "导轴承" }];
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 
-    var myedges = [{ source: 0, target: 1 }, { source: 0, target: 14 },
-    { source: 1, target: 2 }, { source: 2, target: 3 },
-    { source: 3, target: 4 }, { source: 3, target: 5 }, { source: 3, target: 6 }, { source: 3, target: 7 },
-    { source: 1, target: 8 }, { source: 8, target: 9 },
-    { source: 9, target: 10 },
-    { source: 1, target: 11 }, { source: 11, target: 12 },
-    { source: 12, target: 13 },
-    { source: 14, target: 15 }, { source: 15, target: 16 }, { source: 16, target: 17 }, { source: 16, target: 18 },
-    { source: 14, target: 19 }, { source: 19, target: 20 }, { source: 20, target: 21 }];
+<FaultName hidden="hidden">
+    @Model.FirstOrDefault().FaultName.Name
+</FaultName>
+
+<FaultFeaturesCount hidden="hidden">
+    @featuresGroup.Count()
+</FaultFeaturesCount>
+
+<FaultResultsCount hidden="hidden">
+    @resultsGroup.Count()
+</FaultResultsCount>
+
+<div class="jumbotron" style="background-color:deepskyblue">
+    <h2 style="color:white">
+        @ViewBag.Title
+    </h2>
+    <p class="lead">
+
+    </p>
+</div>
+
+<div>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#inve" aria-controls="inve" role="tab" data-toggle="tab">全部故障表征</a></li>
+        <li role="presentation"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">全部故障原因</a></li>
+        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">全部应对方案</a></li>
+    </ul>
+    <div class="tab-content">
+
+        <div role="tabpanel" class="tab-pane fade in active" id="inve">
+
+            <div class="panel panel-danger">
+
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>
+                                特征项
+                            </th>
+                            <th>
+                                相关元件
+                            </th>
+                            <th>
+                                描述
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in featuresGroup)
+                        {
+                            var a = item.Count() + 1;
+                            <tr>
+                                <td name="FeaturesName" rowspan=@a>
+                                    @item.First().FaultFeatures.Name
+                                </td>
+                            </tr>
+
+                            foreach (var line in item)
+                            {
+                                <tr>
+                                    <td>
+                                        @line.Component.Name
+                                    </td>
+
+                                    <td>
+                                        <a asp-action="Edit" asp-controller="FeaturesMappingModels" asp-route-id="@line.FMId">@Html.DisplayFor(modelItem => line.Description)</a>
+                                    </td>
+                                </tr>
+
+                                <hit hidden="hidden" name="FeaturesComponentNameAndDescription">
+                                    @line.Component.Name - @line.Description
+                                </hit>
+                            }
+
+                            <hit hidden="hidden" name="FeaturesComponentNumber">
+                                @item.Count()
+                            </hit>
+                        }
+
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+
+        <div role="tabpanel" class="tab-pane fade" id="home">
+            <div class="panel panel-danger">
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>
+                                原因项
+                            </th>
+                            <th>
+                                相关元件
+                            </th>
+                            <th>
+                                概率
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in resultsGroup)
+                        {
+                            var a = item.Count() + 1;
+
+                            <tr>
+                                <td name="ResultsName" rowspan=@a>
+                                    @item.First().FaultResults.Result
+                                </td>
+                            </tr>
+
+                            foreach (var line in item)
+                            {
+                                <tr>
+                                    <td>
+                                        @line.Component.Name
+                                    </td>
+                                    <td>
+                                        <a asp-action="Edit" asp-controller="ResultsMappingModels" asp-route-id="@line.RMId">@Html.DisplayFor(modelItem => line.Probability)</a>
+                                    </td>
+                                </tr>
+
+                                <hit hidden="hidden" name="ResultsComponentNameAndDescription">
+                                    @line.Component.Name - @line.Probability
+                                </hit>
+                            }
+
+                            <hit hidden="hidden" name="ResultsComponentNumber">
+                                @item.Count()
+                            </hit>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+    var mynodes = new Array();
+
+    mynodes.push({ name: d3.select("FaultName").text().trim(), color: "cornflowerblue" });
+    mynodes.push({ name: "OR", color: "orangered" });
+    mynodes.push({ name: "OR", color: "darkseagreen" });
+
+    var FeaturesNameArray = document.getElementsByName("FeaturesName");
+
+    FeaturesNameArray.forEach(v => {
+        mynodes.push({ name: v.innerText.trim(), color: "lightgray" });
+        mynodes.push({ name: "AND", color: "lightpink" });
+    });
+
+    var FeaturesComponentNameAndDescriptionArray = document.getElementsByName("FeaturesComponentNameAndDescription");
+
+    FeaturesComponentNameAndDescriptionArray.forEach(v => {
+        mynodes.push({ name: v.innerText.trim(), color: "orange" });
+    });
+
+    var FeaturesComponentNumberArray = new Array();
+
+    document.getElementsByName("FeaturesComponentNumber").forEach(v => {
+        FeaturesComponentNumberArray.push(parseInt(v.innerText.trim()));
+    });
+
+    //------------------------------------------------//
+
+    var myedges = new Array();
+
+    myedges.push({ source: 0, target: 1 });
+    myedges.push({ source: 0, target: 2 });
+
+    var counter = 1 + 2 + FeaturesNameArray.length * 2;
+
+    //3-1 5-1 7-1
+
+    for (var i = 0; i < FeaturesNameArray.length; i++) {
+        myedges.push({ source: 3 + i * 2, target: 1 });
+        myedges.push({ source: 4 + i * 2, target: 3 + i * 2 });
+
+        for (var j = 0; j < FeaturesComponentNumberArray[i]; j++) {
+            myedges.push({ source: counter++, target: 4 + i * 2, });
+        }
+    }
+
+    //---------------------特征------------结果------------------------//
+
+    var ResultsNameArray = document.getElementsByName("ResultsName");
+
+    ResultsNameArray.forEach(v => {
+        mynodes.push({ name: v.innerText.trim(), color: "slateblue" });
+        mynodes.push({ name: "AND", color: "lightpink" });
+    });
+
+    var ResultsComponentNameAndDescriptionArray = document.getElementsByName("ResultsComponentNameAndDescription");
+
+    ResultsComponentNameAndDescriptionArray.forEach(v => {
+        mynodes.push({ name: v.innerText.trim(), color: "orange" });
+    });
+
+    var ResultsComponentNumberArray = new Array();
+
+    document.getElementsByName("ResultsComponentNumber").forEach(v => {
+        ResultsComponentNumberArray.push(parseInt(v.innerText.trim()));
+    });
+
+    var oldCounter = counter;
+    counter += ResultsNameArray.length * 2;
+
+    console.log(counter);
+    for (var i = 0; i < ResultsNameArray.length; i++) {
+        myedges.push({ source: oldCounter + i * 2, target: 2 });
+        myedges.push({ source: oldCounter + 1 + i * 2, target: oldCounter + i * 2 });
+
+        for (var j = 0; j < ResultsComponentNumberArray[i]; j++) {
+            myedges.push({ source: counter++, target: oldCounter + 1 + i * 2 });
+        }
+    }
+
+    console.log(mynodes);
+    console.log(myedges);
 </script>
 
-<button class="btn btn-block btn-primary" onclick="startDrawing(mynodes, myedges)">绘制！</button>
+<div>
+    <svg class="row">
 
-<svg class="col-md-12">
+    </svg>
+</div>
 
-</svg>
 
 <script>
     function startDrawing(nodes, edges) {
@@ -65,7 +275,7 @@
         var force = d3.layout.force()
             .nodes(nodes) //指定节点数组
             .links(edges) //指定连线数组
-            .size([400, 600]) //指定作用域范围
+            .size([800, 720]) //指定作用域范围
             .linkDistance(150) //指定连线长度
             .charge([-400]); //相互之间的作用力
 
@@ -88,7 +298,8 @@
             .append("circle")
             .attr("r", 20)
             .style("fill", function (d, i) {
-                return color(i);
+                //return color(i);
+                return d.color;
             })
             .call(force.drag);  //使得节点能够拖动
 
@@ -122,4 +333,5 @@
 
     }
 
-</script> 
+    startDrawing(mynodes, myedges);
+</script>

@@ -192,21 +192,21 @@
 
     var mynodes = new Array();
 
-    mynodes.push({ name: d3.select("FaultName").text().trim() });
-    mynodes.push({ name: "OR" });
-    mynodes.push({ name: "OR" });
+    mynodes.push({ name: d3.select("FaultName").text().trim(), color: "cornflowerblue"});
+    mynodes.push({ name: "OR", color: "orangered"});
+    mynodes.push({ name: "OR", color: "darkseagreen"});
 
     var FeaturesNameArray = document.getElementsByName("FeaturesName");
 
     FeaturesNameArray.forEach(v => {
-        mynodes.push({ name: v.innerText.trim() });
-        mynodes.push({ name: "AND" });
+        mynodes.push({ name: v.innerText.trim(), color: "lightgray" });
+        mynodes.push({ name: "AND", color: "lightpink" });
     });
 
     var FeaturesComponentNameAndDescriptionArray = document.getElementsByName("FeaturesComponentNameAndDescription");
 
     FeaturesComponentNameAndDescriptionArray.forEach(v => {
-        mynodes.push({ name: v.innerText.trim() });
+        mynodes.push({ name: v.innerText.trim(), color: "orange" });
     });
 
     var FeaturesComponentNumberArray = new Array();
@@ -240,14 +240,14 @@
     var ResultsNameArray = document.getElementsByName("ResultsName");
 
     ResultsNameArray.forEach(v => {
-        mynodes.push({ name: v.innerText.trim() });
-        mynodes.push({ name: "AND" });
+        mynodes.push({ name: v.innerText.trim(), color: "slateblue"  });
+        mynodes.push({ name: "AND", color: "lightpink"  });
     });
 
     var ResultsComponentNameAndDescriptionArray = document.getElementsByName("ResultsComponentNameAndDescription");
 
     ResultsComponentNameAndDescriptionArray.forEach(v => {
-        mynodes.push({ name: v.innerText.trim() });
+        mynodes.push({ name: v.innerText.trim(), color: "orange"});
     });
 
     var ResultsComponentNumberArray = new Array();
@@ -313,7 +313,8 @@
             .append("circle")
             .attr("r", 20)
             .style("fill", function (d, i) {
-                return color(i);
+                //return color(i);
+                return d.color;
             })
             .call(force.drag);  //使得节点能够拖动
 

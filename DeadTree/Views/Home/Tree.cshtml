@@ -33,6 +33,7 @@
         for (int j = i + 1; j < BigResults.Count; j++)
         {
             var jtem = BigResults[j];
+
             if (item.FaultResults == jtem.FaultResults && item.Component == jtem.Component)
             {
                 BigResults[j].Probability += item.Probability;
@@ -47,6 +48,20 @@
     var resultsGroup = BigResults.GroupBy(x => x.FRId);
 
     var quest = Model.FirstOrDefault() == null ? "" : Model.FirstOrDefault().FaultName.Name;
+
+    var AllProbability = 0.0;
+
+    foreach (var item in resultsGroup)
+    {
+        foreach (var line in item)
+        {
+            AllProbability += line.Probability;
+        }
+    }
+
+    if (AllProbability == 0.0) {
+        AllProbability = 1.0;
+    }
 }
 
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
@@ -170,17 +185,18 @@
 
                             foreach (var line in item)
                             {
+                                var prop = (line.Probability / AllProbability).ToString("p");
                                 <tr>
                                     <td>
                                         @line.Component.Name
                                     </td>
                                     <td>
-                                        <a asp-action="Edit" asp-controller="ResultsMappingModels" asp-route-id="@line.RMId">@Html.DisplayFor(modelItem => line.Probability)</a>
+                                        <a asp-action="Edit" asp-controller="ResultsMappingModels" asp-route-id="@line.RMId">@prop</a>
                                     </td>
                                 </tr>
 
                                 <hit hidden="hidden" name="ResultsComponentNameAndDescription">
-                                    @line.Component.Name - @line.Probability
+                                    @line.Component.Name - @prop
                                 </hit>
                             }
 

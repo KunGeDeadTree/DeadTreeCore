@@ -8,4 +8,4 @@
 > 必要环境：MS.NET CORE 2.0运行支持 Chrome 53以上版本的浏览器（必须支持高级JS方法）
 ------------------
 ## 界面预览
-![avatar](/Pictures/1.png)![avatar](/Pictures/2.png)![avatar](/Pictures/3.png)
+![avatar](/Pictures/1.PNG)![avatar](/Pictures/2.png)![avatar](/Pictures/3.png)

@@ -9,3 +9,7 @@
 ------------------
 ## 界面预览
 ![avatar](/Pictures/1.PNG)![avatar](/Pictures/2.png)![avatar](/Pictures/3.png)
+## THANKS
+* [D3.JS](https://github.com/d3/d3)   
+* [Visual Studio](https://docs.microsoft.com/zh-cn/visualstudio/)   
+* [.NET CORE 2.0](https://www.microsoft.com/net/download/windows)   

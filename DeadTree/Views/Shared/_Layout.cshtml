@@ -60,6 +60,12 @@
                                 <li><a asp-area="" asp-controller="Home" asp-action="Logout">注销</a></li>
                                 break;
                             }
+                        case "用户":
+                            {
+                                <li><a asp-area="" asp-controller="FaultNameModels" asp-action="UserIndex">故障名称知识图谱查询</a></li>
+                                <li><a asp-area="" asp-controller="Home" asp-action="Logout">注销</a></li>
+                                break;
+                            }
                         case "超级管理员":
                             {
                                 <li><a asp-area="" asp-controller="ComponentModels" asp-action="Index">Component</a></li>

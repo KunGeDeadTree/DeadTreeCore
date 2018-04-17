@@ -167,7 +167,7 @@ namespace DeadTree.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Regist([Bind("PId,Name,PaperworkNumber,Unit,Major,PhoneNumber,Email,WeChat,CardNumber,BankName,Password")] ProfessorModel professorModel)
+        public async Task<IActionResult> Regist([Bind("PId,Name,PaperworkNumber,Unit,Major,PhoneNumber,Email,WeChat,CardNumber,BankName,Password,Type")] ProfessorModel professorModel)
         {
             if (await _context.GetProfessorModels.AnyAsync(x => x.Email == professorModel.Email))
             {
@@ -176,7 +176,7 @@ namespace DeadTree.Controllers
 
             if (ModelState.IsValid)
             {
-                professorModel.Type = Models.EnumClass.EnumAccountType.专家;
+                //professorModel.Type = Models.EnumClass.EnumAccountType.专家;
                 _context.Add(professorModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

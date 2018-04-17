@@ -1,0 +1,35 @@
+﻿@model IEnumerable<DeadTree.Models.DBClass.FaultNameModel>
+
+@{
+    ViewData["Title"] = "故障问题查询";
+}
+
+<div class="jumbotron" style="background-color:cadetblue">
+    <h2 style="color:white">@ViewData["Title"]</h2>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                操作
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    <a class="btn btn-xs btn-info" asp-action="Tree" asp-controller="Home" asp-route-id="@item.FNId">查看该问题图谱</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

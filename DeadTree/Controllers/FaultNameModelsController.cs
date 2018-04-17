@@ -24,6 +24,15 @@ namespace DeadTree.Controllers
             return View(await _context.GetFaultNameModels.ToListAsync());
         }
 
+        public async Task<IActionResult> UserIndex(string name)
+        {
+            if (String.IsNullOrEmpty(name))
+            {
+                return View(await _context.GetFaultNameModels.ToListAsync());
+            }
+            return View(await _context.GetFaultNameModels.Where(x => x.Name.Contains(name)).ToListAsync());
+        }
+
         // GET: FaultNameModels/Details/5
         public async Task<IActionResult> Details(int? id)
         {

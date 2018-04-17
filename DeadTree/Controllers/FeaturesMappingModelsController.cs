@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DeadTree.Models.DBClass;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DeadTree.Controllers
 {
@@ -75,6 +76,7 @@ namespace DeadTree.Controllers
             return View(featuresMappingModel);
         }
 
+        [Authorize(Roles = "超级管理员,专家")]
         // GET: FeaturesMappingModels/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -99,6 +101,7 @@ namespace DeadTree.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "超级管理员,专家")]
         public async Task<IActionResult> Edit(int id, [Bind("FMId,FFId,CId,Description,QId")] FeaturesMappingModel featuresMappingModel)
         {
             if (id != featuresMappingModel.FMId)

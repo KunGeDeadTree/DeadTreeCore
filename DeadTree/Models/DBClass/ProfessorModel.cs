@@ -12,7 +12,7 @@
         [DisplayName("专家ID")]
         public int PId { get; set; }
 
-        [DisplayName("专家姓名")]
+        [DisplayName("姓名")]
         [Required]
         public string Name { get; set; }
 

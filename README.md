@@ -1,5 +1,5 @@
 # DeadTreeCore
-This repo is going to tell you how to use D3 force layout to construct knowledge map!
+This repo is going to tell you how to use D3 force layout to construct knowledge map!     
 Just clone it and then run in VS2017 with localDB!
 
 ## How To Use

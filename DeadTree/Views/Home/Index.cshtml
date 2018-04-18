@@ -6,3 +6,716 @@
     <h2 style="color:white">@ViewData["Title"]</h2>
     <p class="lead" style="color:white">使用D3.JS构建的知识图谱</p>
 </div>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">系统配置</h3>
+    </div>
+    <div class="panel-body">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">设备录入管理</h3>
+            </div>
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>功能描述</h3>
+                                <p>
+                                    由于所有的故障都是针对具体设备或某一类别设备而已的。所以专家知识库需要对设备及设备类型，相应的功能，功能元件组成的内容进行记录和管理。因此，该功能模块需要提供新建设备，设置设备的类别、型号、部件组成、部件间关联关系等功能项。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>输入项及要求</h3>
+                                <p>
+                                    设备名称：可包含汉字、字母、数字的字符串输入<br />
+                                    设备类别：专业类别名称<br />
+                                    设备型号：设备出厂时标注的型号码<br />
+                                    设备元件（集）：输入元件名称，元件规格，元件的相关参数等；一个设备可以包含多个元件，元件个数不定，相关数据存储时需要做灵活设置。<br />
+                                    元件关联：如元件之间有关联关系，可以将元件关系进行配置，并标明关系名称。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>输出项及要求</h3>
+                                <p>设备模型：包含各项设备属性描述的完整的设备模型，可用于后续故障问卷模板生成。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">故障特征项管理</h3>
+            </div>
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>功能描述</h3>
+                                <p>
+                                    不同的设备都前置或后置的传感装置，用于对设备中不同元件的行为/表现特征进行监测，这些特征的异常表现/值都将被用于设备故障表征的描述。因此，该功能模块需要根据具体设备的监测项定义设备的故障特征项，以及其与设备元件间的关联关系。本功能还可以对已定义的故障特征项进行检索、增加、修改、删除等操作。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>输入项及要求</h3>
+                                <p>
+                                    故障特征项定义：可以从已定义的抽象特征项集中选择，如，温度，压力，振动等。<br />
+                                    故障特征项与元件的关联：将选定的特征项与设备内具体的元件实现绑定，如温度：集电环的温度。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>输出项及要求</h3>
+                                <p>
+                                    故障特征项集：针对某个特定的设备，定义特定元件专属的故障特征。该特征项集可以通过故障名或特征名进行检索，以便用于后续故障问卷模板生成。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">故障录入管理</h3>
+            </div>
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>功能描述</h3>
+                                <p>
+                                    针对不同的设备需要定义所关注的故障，即问答系统进行知识采集的故障。这些故障可以由系统管理员根据经验、或者相似设备的故障、或者专业知识进行定义。因此，本功能模块主要针对某设备的关键故障进行定义，即为故障问答系统设置题干。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>输入项及要求</h3>
+                                <p>
+                                    故障名称：尽量运用专业术语（系统软性要求），以保障专家库的专业性。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>输出项及要求</h3>
+                                <p>
+                                    故障名词集合：包含具体某设备所属的被关注的故障名称，可用于后续故障问卷模板生成。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">专家名录管理</h3>
+            </div>
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>功能描述</h3>
+                                <p>
+                                    本系统的故障知识采集对象是专家，故此，本功能模块负责录入专家的信息，从而形成一个相对完整的专家库。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>输入项及要求</h3>
+                                <p>
+                                    专家姓名（必填）：与证件相同的真实姓名<br />
+                                    证件号码（必填）：中国大陆专家填写身份证号，非中国大陆专家填写护照号<br />
+                                    所属单位（必填）：单位名称<br />
+                                    专长（必填）：以关键词方式输入，每个关键词尽量填写专业术语，以方便后续故障问卷任务分派中的专家自动匹配功能。<br />
+                                    联系电话（选填）：可联系的正确的电话号码。<br />
+                                    联系邮件（必填）：正确的可接收邮件的常用邮箱，以方便后续问卷分派时，收取问卷链接。<br />
+                                    联系微信（选填）：常用微信<br />
+                                    银行账号：发放酬劳的银行账户<br />
+                                    开户行：正确的开户行信息
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>输出项及要求</h3>
+                                <p>
+                                    专家库：可增删改查的专家信息库，每条专家信息都包含完整的信息，如专家专长描述，联系方式描述，以及银行账户描述，等。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">知识采集</h3>
+    </div>
+    <div class="panel-body">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">故障问卷模板管理</h3>
+            </div>
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>功能描述</h3>
+                                <p>
+                                    根据系统配置子系统设定的设备信息、故障特征信息等，本功能模块需要能自动生成可用于引导专家进行设备故障知识描述的问卷模板。问卷模板需包含三大部分：故障表征、故障原因、故障解决方案。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>输入项及要求</h3>
+                                <p>
+                                    问卷生成选定项：设备、设备相关故障
+                                    问卷生成依据：监测的设备相关的故障特征项、特征项关联的设备元件、故障常见原因、常识原因、专业预判
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>输出项及要求</h3>
+                                <p>
+                                    故障问卷模板
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">问卷发放计划管理</h3>
+            </div>
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>功能描述</h3>
+                                <p>
+                                    根据系统配置子系统录入的专家专长信息，进行问卷任务的专家自动匹配，生成问卷发放计划，按时通过邮件将问卷链接发送到专家邮箱，再按时回收问卷。
+                                    专家自动匹配结果可以做人工干预和调整。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>输入项及要求</h3>
+                                <p>
+                                    专家自动匹配项如下：选定设备类别、作用领域、选定设备相关故障类型、专家专长关键词
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>输出项及要求</h3>
+                                <p>
+                                    问卷任务分派专家列表、问卷任务时间表、问卷自动分配邮件
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">故障问卷答题系统</h3>
+            </div>
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>功能描述</h3>
+                                <p>
+                                    回答问题
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>输入项及要求</h3>
+                                <p>
+                                    抽象特征项选择：根据系统配置子系统设定的与当前设备相关的抽象特征项进行选择。<br />
+                                    特征项与元件关联具体化：通过将抽象故障特征项与设备相关元件进行关联，实现故障特征的具体化，在此操作中还需要添加特征项的定量指标或定性等级的指标描述。<br />
+                                    特征项组合关联描述：特征项组合包括抽象特征项的“与、或”组合，也包括特征项关联的元件的“与、或”组合。<br />
+                                    故障原因项：可从常见、常用的原因项中进行选择，也可以由专家自行增加。<br />
+                                    原因项与元件关联具体化：通过将原因项与设备相关元件进行关联，实现故障原因的具体化，在此操作中还需要添加原因项的概率描述。<br />
+                                    原因项组合关联描述：原因项组合包括原因项的“与、或”组合，也包括原因项关联的元件的“与、或”组合。<br />
+                                    故障解决方案：针对由不同原因引发的故障，专家应给出相应的对策。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>输出项及要求</h3>
+                                <p>
+                                    故障特征描述：可能出现的故障表征描述，必须与元件关联。能定量描述的需要定量描述，否则需要给出定性的级别描述。<br />
+                                    故障原因描述：可能引发故障的原因的描述，必须与元件关联。需要给出不同原因引发故障的概率值（不要求客观精确，可以是专家的主观判断和经验定义）。<br />
+                                    故障解决方案描述：针对不同情况对症下药的解决方案。需要是维修人员能理解，可实施的方案。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">问卷进度管理</h3>
+            </div>
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>功能描述</h3>
+                                <p>
+                                    问卷任务分派后，管理员应该可以从后台关注问卷完成的进度，并对进度较慢的问卷任务进行催促。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>输入项及要求</h3>
+                                <p>
+                                    任务检索
+                                    	按任务名称检索
+                                    	按时间期间检索
+                                    	按专家名检索
+                                    进度催促
+                                    	需要确定一个催促时间点，以及催促次数
+                                    	对逾期任务是否进行重新分派？
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>输出项及要求</h3>
+                                <p>
+                                    任务完成进度表、任务催促邮件
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">知识整理归纳</h3>
+    </div>
+    <div class="panel-body">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">问卷有效性判别</h3>
+            </div>
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>功能描述</h3>
+                                <p>
+                                    按问卷任务制定的时间节点自动回收问卷，其中会包含未完成、完成度不高的问卷，均视为无效卷。自定义项中非专业程度过高的（非专业判定规则需要与甲方商定）也将被视为无效卷。
+                                    被判为无效卷的结果，需要由系统管理员复核之后才能正式生效。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>输入项及要求</h3>
+                                <p>
+                                    有效性自动判别项：
+                                    	是否有答案？
+                                    	答案描述不完整
+                                    	特征项、原因项自定义表达的专业性
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>输出项及要求</h3>
+                                <p>
+                                    无效问卷集、有效问卷集
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">知识抽取及融合规则设置</h3>
+            </div>
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>功能描述</h3>
+                                <p>
+                                    本模块将允许管理员对知识抽取及融合设定规则，如频繁概念的加权，不同等级专家的表述的加权，领域相关度对加权的影响等。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>输入项及要求</h3>
+                                <p>
+                                    加权项设定
+                                    加权项权值定义
+                                    如有组合式规则，需要给出规则判断的逻辑表达，如正则表达。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>输出项及要求</h3>
+                                <p>
+                                    知识抽取及融合规则集
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">问卷知识抽取转换</h3>
+            </div>
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>功能描述</h3>
+                                <p>
+                                    对单一问卷，根据问卷的知识表达结构，将概念的描述，概念与概念之间的关联描述转换成为本体形式的表达
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>输入项及要求</h3>
+                                <p>
+                                    知识自动抽取的依据：
+                                    	问卷模板定义的知识结构，如故障特征项，但特征项描述需要做简单的自然语言处理
+                                    文本知识的本体化转换的依据：
+                                    	专家对问卷中定义的关联关系的选择
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>输出项及要求</h3>
+                                <p>
+                                    基于单一专家问卷描述知识的故障知识本体表达
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">故障知识树生成</h3>
+            </div>
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>功能描述</h3>
+                                <p>
+                                    融合多个专家问卷的知识本体表达，重新计算本体概念的重要性，本体间关系的强弱关系，即故障的主要表征及故障发生的大概率事件/原因。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>输入项及要求</h3>
+                                <p>
+                                    单一专家知识本体化表达融合依据：
+                                    	“知识抽取及融合规则设置”中设置的规则
+                                    	本体概念文本表述的语义相似度（需要做文本语义相似度的计算）
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>输出项及要求</h3>
+                                <p>
+                                    融合多专家知识的故障知识树： 注意概念重要性，概念关系概率的计算。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">故障知识树确认</h3>
+            </div>
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>功能描述</h3>
+                                <p>
+                                    人工判别“故障知识树生成”所融合的基于多专家知识的故障知识树的合理性，并对其进行修正。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>输入项及要求</h3>
+                                <p>
+                                    修正者也需要是专家，修订极可能破坏原有多专家的意图，所以修订要留下痕迹。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>输出项及要求</h3>
+                                <p>
+                                    确认后的融合多专家知识的故障知识树：可以考虑对生成的知识树上的各类加权进行人工判定，进而逆向论证“知识抽取及融合规则设置”中定义的规则的合理性。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">知识图谱融合</h3>
+            </div>
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>功能描述</h3>
+                                <p>
+                                    将“故障知识树确认”最终确认生成的故障知识树与已有的其他故障知识树进行融合。此次，融合可能是概念的叠加，也可能是知识的延展。如，某元件的温度过高问题会引发多种故障，这属于概念的叠加，加强问题的重要性。再如，某一故障可能会作为另一故障的初始表征，这就术语概念的拓展，让我们了解到一些故障原因的传导能力。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>输入项及要求</h3>
+                                <p>
+                                    图谱融合需要对概念本体进行对齐操作<br />
+                                    由于部分概念描述是文本的定性表达，需要做语义相似度计算，语义极性判别、定级等操作<br />
+                                    本体对齐的同时可能会出现概念冲突的问题，包括数值冲突、语义倾向性冲突、等问题，这些都要妥善处理，必要时候需要引入人工干预。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>输出项及要求</h3>
+                                <p>
+                                    故障知识图谱
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">知识图谱检索接口</h3>
+            </div>
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>功能描述</h3>
+                                <p>
+                                    提供对如图3所示的知识图谱的检索接口。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>输入项及要求</h3>
+                                <p>
+                                    本处实现的是子图匹配的算法，包含了图结构匹配，还包括图语义匹配<br />
+                                    子图匹配算法返回的通常是Top K推荐值，需要根据图中的各种加权对可能的推荐值进行排序呈现
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>输出项及要求</h3>
+                                <p>
+                                    支持知识图谱检索的多种操作：
+                                    	由故障名找故障特征、故障原因、以及解决方案
+                                    	由故障表征判定故障，查找故障原因
+                                    	由故障原因找相关的故障及故障表征
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

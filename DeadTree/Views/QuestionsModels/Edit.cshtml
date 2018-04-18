@@ -192,9 +192,9 @@
 
     var mynodes = new Array();
 
-    mynodes.push({ name: d3.select("FaultName").text().trim(), color: "cornflowerblue"});
-    mynodes.push({ name: "OR", color: "orangered"});
-    mynodes.push({ name: "OR", color: "darkseagreen"});
+    mynodes.push({ name: d3.select("FaultName").text().trim(), color: "cornflowerblue" });
+    mynodes.push({ name: "OR", color: "orangered" });
+    mynodes.push({ name: "OR", color: "darkseagreen" });
 
     var FeaturesNameArray = document.getElementsByName("FeaturesName");
 
@@ -240,14 +240,14 @@
     var ResultsNameArray = document.getElementsByName("ResultsName");
 
     ResultsNameArray.forEach(v => {
-        mynodes.push({ name: v.innerText.trim(), color: "slateblue"  });
-        mynodes.push({ name: "AND", color: "lightpink"  });
+        mynodes.push({ name: v.innerText.trim(), color: "slateblue" });
+        mynodes.push({ name: "AND", color: "lightpink" });
     });
 
     var ResultsComponentNameAndDescriptionArray = document.getElementsByName("ResultsComponentNameAndDescription");
 
     ResultsComponentNameAndDescriptionArray.forEach(v => {
-        mynodes.push({ name: v.innerText.trim(), color: "orange"});
+        mynodes.push({ name: v.innerText.trim(), color: "orange" });
     });
 
     var ResultsComponentNumberArray = new Array();

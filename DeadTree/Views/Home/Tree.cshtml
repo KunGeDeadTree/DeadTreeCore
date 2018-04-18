@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<DeadTree.Models.DBClass.QuestionsModel>
 
+@using System.Security.Claims;
 @{
     ViewData["Title"] = "树状知识图谱 融合算法Ver1.0";
 
@@ -59,9 +60,15 @@
         }
     }
 
-    if (AllProbability == 0.0) {
+    if (AllProbability == 0.0)
+    {
         AllProbability = 1.0;
     }
+
+    var t = User.FindFirst(ClaimTypes.Role);
+    var userType = t == null ? "" : t.Value;
+
+    var flag = userType == "用户" ? true : false;
 }
 
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
@@ -131,9 +138,17 @@
                                     <td>
                                         @line.Component.Name
                                     </td>
-
                                     <td>
-                                        <a asp-action="Edit" asp-controller="FeaturesMappingModels" asp-route-id="@line.FMId">@Html.DisplayFor(modelItem => line.Description)</a>
+                                        @if (flag)
+                                        {
+                                            @Html.DisplayFor(modelItem => line.Description)
+                                        }
+                                        else
+                                        {
+
+                                            <a asp-action="Edit" asp-controller="FeaturesMappingModels" asp-route-id="@line.FMId">@Html.DisplayFor(modelItem => line.Description)</a>
+
+                                        }
                                     </td>
                                 </tr>
 
@@ -191,7 +206,17 @@
                                         @line.Component.Name
                                     </td>
                                     <td>
-                                        <a asp-action="Edit" asp-controller="ResultsMappingModels" asp-route-id="@line.RMId">@prop</a>
+                                        @if (flag)
+                                        {
+
+                                            @prop
+                                        }
+                                        else
+                                        {
+
+                                            <a asp-action="Edit" asp-controller="ResultsMappingModels" asp-route-id="@line.RMId">@prop</a>
+
+                                        }
                                     </td>
                                 </tr>
 

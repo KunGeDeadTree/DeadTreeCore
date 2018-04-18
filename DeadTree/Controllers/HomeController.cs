@@ -174,6 +174,14 @@ namespace DeadTree.Controllers
                 ModelState.AddModelError("Email", "该邮箱已被注册");
             }
 
+            if (professorModel.Type == Models.EnumClass.EnumAccountType.用户)
+            {
+                professorModel.PaperworkNumber = "用户证件号";
+                professorModel.Unit = "用户单位";
+                professorModel.Major = "用户专长";
+                professorModel.CardNumber = "银行账号";
+            }
+
             if (ModelState.IsValid)
             {
                 //professorModel.Type = Models.EnumClass.EnumAccountType.专家;

@@ -21,6 +21,11 @@ namespace DeadTree.Controllers
         // GET: FaultNameModels
         public async Task<IActionResult> Index()
         {
+            //LINQ用法
+            //var c = from bit in _context.GetApparatusModels
+            //        where bit.AId < 20
+            //        select bit;
+
             return View(await _context.GetFaultNameModels.ToListAsync());
         }
 
